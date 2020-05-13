@@ -3,13 +3,6 @@ defmodule Cards do
     values = ["Ace", "Two", "Three", "Four", "Five"]
     suits = ["Spades", "Clubs", "Hearst", "Diamonds"]
 
-    # each for each resulta em um array de array: [[], []]
-    # cards = for value <- values do
-    #   for suit <- suits do
-    #     "#{value} of #{suit}"
-    #   end
-    # end
-    # List.flatten(cards)
     for suit <- suits, value <- values do
       "#{value} of #{suit}"
     end
@@ -38,5 +31,14 @@ defmodule Cards do
       {:ok, binary} -> :erlang.binary_to_term(binary)
       {:error, _reason} -> "That file does not exist"
     end
+  end
+
+  # operador pipe
+  # o resultado é mandado automaticamente
+  # para a proximo método, como primeiro argumento
+  def create_hand(hand_size) do
+    Cards.create_deck()
+    |> Cards.shuffle()
+    |> Cards.deal(hand_size)
   end
 end
